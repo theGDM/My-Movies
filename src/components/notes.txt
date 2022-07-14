@@ -1,0 +1,95 @@
+Steps to make any complex React App-
+ 1. First of all break the app in components
+ 2. Write the static html
+ 3. Identify the cahnging data and put that in state
+ 4. To manipulate that state use methods functions and update bu seState
+ 5. Establish connection between components
+
+ App structure
+ --------------
+                      |
+                     App
+                   /    \
+            Navbar        Main
+                        /     \
+                      Genre    Movies
+                             /   |   \
+                        InputBox |    Pagination
+                                 |
+                            MoviesTable
+
+rfce -> command to crete react template
+
+-------------------------------------------------------------------------------
+InputBox -> One button, Two inputs
+MoviesTable -> heading(Sno, Title, Genre, Stock, Rate) using tailwind table
+
+To set number of elemnts per page and search movies :
+data flow = InputBox -> Movies(Parent) -> MoviesTable
+
+To search on genre :
+data flow = Genre -> Main(Parent) -> Movies -> MoviesTable
+-------------------------------------------------------------------------------
+Pagination logic:
+ Total elements = 9
+ no of elements per page = 4
+
+ => No of page require : ceil(9/4) = 3
+                                 -------------------------
+                                 |   1   |   2   |   3   |
+                                 -------------------------
+                                     |       |       |
+                                  {0, 3}  {4, 7}   { 8 }
+ cPage : 1 ->   [0, 1, 2, 3]  sid = (1 - 1) * 4 = 0
+         2 ->   [4, 5, 6, 7]  sid = (2 - 1) * 4 = 4
+         3 ->   [8, 9, 10, 11] sid = (3 - 1) * 4 = 8
+         4 ->   [12, 13, 14, 15] sid = (4 - 1) * 4 = 12
+         5 ->   [16, 17, 18, 19] sid = (5 - 1) * 4 = 16
+
+  lid = sid + per page
+  sid = (cPage - 1) * per page                
+ 
+-----------------------------------------------------------------------------------------------------------
+Routing Concept :
+-----------------
+ * in fronend routing page do not reload (without reloading)
+ * We bring the html of all the tiles like(job, notification, login, setting) in a bundle at a time
+ * when user click on job , first the request is made to the bundle whether it have the html for job or not,
+   if it has, then we switch to that page, without reloading the entire application.
+ * page do not reload on change of the link when we switch to section
+ * The advantage is that we get data of multiple pages at a time, and we need not to request to backend
+ * That is why react is single page application
+ * Library used is react-router-dom
+
+Advantage :
+ -faster
+ -smoother experience
+
+Disadvantage :
+ -bundle size may increase(which have the static html of different pages)
+----------------------------------------------------------------------------------------------------------
+Imp Terms
+----------
+1)BrowserRouter -> To enable routing in a react app
+                 wrap whole app component in BrowserRouter(extracted from react-router-dom);
+
+2)Route -> it gives us the feature to bind/associate a route with a component
+           it is in-biuilt component
+
+3)exact -> exactly match the route, no substring match
+
+'*' mathches to path which do not matches to above all the exact path, and it should be at 
+    end of valid routes
+----------------------------------------------------------------------------------------------------------
+Steps for Deployment :
+----------------------                      (Netlify)
+-> create-react-app                   (1) create-router-dom
+                                          create  __redirects file -> public -> put line(/* /index.html 200)
+                                      (2) npm run build -> build folder
+                                      (3) Now all work on netlify
+                                      (4) Netlify -> sites -> drag and drop build folder
+
+
+
+
+
