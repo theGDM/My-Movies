@@ -30,7 +30,7 @@ function New() {
         e.preventDefault()
         let movie = movieName.split(" ").join("+");
         console.log(movieName + " " + movieYear + " " + moviePlot + " " + type);
-        let link = `http://www.omdbapi.com/?${movieName !== '' ? `t=${movie}&` : ``}${movieYear !== '' ? `y=${movieYear}&` : ``}${moviePlot !== '' ? `plot=${moviePlot}&` : ``}${type !== '' ? `type=${type}&` : ``}apikey=ec3de2af`;
+        let link = `https://www.omdbapi.com/?${movieName !== '' ? `t=${movie}&` : ``}${movieYear !== '' ? `y=${movieYear}&` : ``}${moviePlot !== '' ? `plot=${moviePlot}&` : ``}${type !== '' ? `type=${type}&` : ``}apikey=ec3de2af`;
         // console.log(link);
         const movieData = await fetch(link);
         const data = await movieData.json();
@@ -101,7 +101,7 @@ function New() {
                             </select>
                         </div>
                     </div>
-                    <button type='submit' className="bg-yellow-300 px-6 py-2 border-2 border-yellow-500 hover:bg-yellow-400 rounded  font-bold uppercase text-gray-700" onClick={getMovieDetails}>Submit</button>
+                    <button meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" type='submit' className="bg-yellow-300 px-6 py-2 border-2 border-yellow-500 hover:bg-yellow-400 rounded  font-bold uppercase text-gray-700" onClick={getMovieDetails}>Submit</button>
                 </form>
                 <div className='card'>
                     {isLoaded === false || details.Response === "False" ? <div className='shadow-xl border-2 border-gray-300 rounded py-2 px-6'>Movie's Details Not Available</div> : <div>{card}</div>}
